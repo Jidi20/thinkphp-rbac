@@ -1,0 +1,24 @@
+@charset "utf-8";
+*{margin:0;padding:0;}
+body{font:14px/1.5 '微软雅黑';background:#fff;}
+img{border:0 none;vertical-align:middle}
+a{color:#3acfcb;text-decoration:none;}
+.c1{color:#3acfcb;}
+.ml10{margin-left:10px;}
+.ml170{margin-left:170px;}
+.br3{border-radius:3px;}
+.w150{width:150px;}
+.w250{width:252px;}
+.w50_{width:50%;}
+.w40_{width:40%;}
+.fl{float:left;}
+.cb{clear: both;}
+.admin_login_wrap{margin:0 auto;width:300px;}
+.admin_login_logo{width:150px;margin:0 auto;margin-bottom:10px;}
+.admin_login_logo img{width:100%;}
+.admin_login_border{border:1px solid #eee;background:#fff;overflow:hidden;padding:20px;}
+.admin_input{width:100%;}
+.admin_items li{line-height:30px;margin-bottom: 15px;list-style:none;clear: both;}
+.admin_input_style{border:1px solid #d5d5d5;background:#fff;padding-left:2px;height:30px;line-height:30px;color:#393534;font-weight:bold;}
+.btn-primary{width: 100%;color:#fff;background-color:#3acfcb;border:none;text-align:center;height:35px;}
+.admin_copyright{color:#585858;margin-top:10px;text-align:center;}

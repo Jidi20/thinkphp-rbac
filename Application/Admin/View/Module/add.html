@@ -1,0 +1,75 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;模块开发
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>模块名称：</th>
+							<td><input class="inpstyle w300" id="" name="name" value="" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>英文名称：</th>
+							<td><input class="inpstyle w300" id="" name="title" value="" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>排序：</th>
+							<td><input class="inpstyle w300" name="sort" value="" type="text"></td>
+						</tr>
+						<tr>
+							<th>状态：</th>
+							<td>显示：<input name="is_view" type="radio" value="1" checked>&nbsp;&nbsp;不显示：<input name="is_view" type="radio" value="0" ></td>
+						</tr>
+						<tr>
+							<th>上级分类：</th>
+							<td>
+								<select name="pid" id="" class="selstyle w300">
+									<option value="0">顶级分类</option>
+									<foreach name='list' item='vo'>
+										<if condition="$vo['o_level'] neq 3">
+											<option value="{$vo.id}">{$vo.html}{$vo.name}</option>
+										</if>
+									</foreach>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input class="butstyle mr10 bg1" value="提交" type="button" onclick="add_data()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		add_status=true;
+		function add_data(){
+		if(add_status){
+			add_status=false;
+			$.ajax({
+				url :"__URL__/add_ajax",
+				type : 'post',
+				data :$("#form1").formSerialize(),
+				dataType :'json',
+				success : function(data) {
+					if(data.success==1){
+						Boxy.alert(data.message,function(){
+							location.href='__URL__/index';
+						});return false;
+					}else{
+						add_status=true;
+						Boxy.alert(data.message, null);return false;
+					}
+				}
+			});
+		}else{
+			Boxy.alert("信息正在提交...", null);return false;
+		}
+	}
+    </script>

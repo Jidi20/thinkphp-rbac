@@ -1,0 +1,47 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;个人信息
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>名称：</th>
+							<td>{$list.name}</td>
+						</tr>
+						<tr>
+							<th>手机：</th>
+							<td>{$list.phone}</td>
+						</tr>
+						<tr>
+							<th>最后登陆时间：</th>
+							<td>{$list.login_time|date='Y-m-d H:i',###}</td>
+						</tr>
+						<tr>
+							<th>最后登陆IP：</th>
+							<td>{$list.login_ip}</td>
+						</tr>
+						<tr>
+							<th>登陆次数：</th>
+							<td>{$list.login_count}</td>
+						</tr>
+						<tr>
+							<th>是否锁定：</th>
+							<td>
+							否：<input name="is_lock" type="radio" value="1" <if condition='$list.is_lock eq 1'>checked</if>>&nbsp;&nbsp;
+							是：<input name="is_lock" type="radio" value="0" <if condition='$list.is_lock eq 0'>checked</if>>
+							</td>
+						</tr>
+						<if condition="session('is_admin') neq 1">
+							<tr>
+								<th>角色：</th>
+								<td><input class="inpstyle w300" id="" name="newtext" value="{$list.rolename}" type="text"></td>
+							</tr>
+						</if>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>

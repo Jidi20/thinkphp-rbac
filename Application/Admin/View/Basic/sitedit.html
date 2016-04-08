@@ -1,0 +1,79 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			<!-- 当前位置：首页&nbsp;&gt;&nbsp;商家管理 -->
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>网站名称：</th>
+							<td><input class="inpstyle w300" id="" name="sitename" value="{$list.sitename}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>网站地址：</th>
+							<td><input class="inpstyle w300" id="" name="siteurl" value="{$list.siteurl}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>管理员邮箱：</th>
+							<td><input class="inpstyle w300" name="email" value="{$list.email}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>网站备案号：</th>
+							<td><input class="inpstyle w300" name="record_num" value="{$list.record_num}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>底部版权信息:</th>
+							<td><input class="inpstyle w300" name="copyright" value="{$list.copyright}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>首页标题：</th>
+							<td><input class="inpstyle w300" name="title" value="{$list.title}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>网站关键字：</th>
+							<td><input class="inpstyle w300" name="keyword" value="{$list.keyword}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>网站描述:</th>
+							<td><textarea rows="8" cols="60" name="description" id="">{$list.description}</textarea></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input class="butstyle mr10 bg1" value="提交" type="button" onclick="add_data()">
+							</td>
+						</tr>
+					</table>
+					<input value="{$list.id}" name="id" type="hidden">
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		add_status=true;
+		function add_data(){
+		if(add_status){
+			add_status=false;
+			$.ajax({
+				url :"__URL__/Sitedit",
+				type : 'post',
+				data :$("#form1").formSerialize(),
+				dataType :'json',
+				success : function(data) {
+					if(data.success==1){
+						Boxy.alert(data.message,function(){
+							location.href='__URL__/index';
+						});return false;
+					}else{
+						add_status=true;
+						Boxy.alert(data.message, null);return false;
+					}
+				}
+			});
+		}else{
+			Boxy.alert("信息正在提交...", null);return false;
+		}
+	}
+    </script>

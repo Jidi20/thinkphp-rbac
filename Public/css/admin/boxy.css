@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+.boxy-wrapper{position:absolute;}
+.boxy-wrapper.fixed{position:fixed;}
+/* Modal */ 
+.boxy-modal-blackout{position:absolute; background-color:#000; left:0; top:0;} 
+.boxy-content{border:1px #ababab solid;background:#fff;}
+/* Border */
+.boxy-wrapper{empty-cells:show;}
+.boxy-wrapper .top-left,.boxy-wrapper .top-right,.boxy-wrapper .bottom-right,.boxy-wrapper .bottom-left{width:10px; height:10px; padding:0}
+.boxy-wrapper .top,.boxy-wrapper .bottom{height:10px; background-color:black; opacity:0.6; filter:alpha(opacity=60); padding:0}
+.boxy-wrapper .left,.boxy-wrapper .right{width:10px; background-color:black; opacity:0.6; filter:alpha(opacity=60); padding:0}
+/* Title bar */
+.boxy-wrapper .title-bar{background-color:#333333; padding:6px; position:relative;display:none;}
+.boxy-wrapper .title-bar.dragging{cursor:move;}
+.boxy-wrapper .title-bar h2{font-size:12px; color:white; line-height:1; margin:0; padding:0; font-weight:normal;}
+.boxy-wrapper .title-bar .close{color:white; position:absolute; top:5px; right:6px; font-size:12px;}
+.boxy-wrapper .title-bar .close:hover{background-color:#454545;}
+/* Content Region */
+.boxy-inner{background-color:white; padding:0;}
+/* Question Boxes */
+.boxy-wrapper .question{max-width:350px;min-width:200px; min-height:50px; _height:50px;padding:15px;text-align:center;color:#333333;}
+.boxy-wrapper .b_buttom{max-width:350px;min-width:200px; height:50px; line-height:45px; text-align:right;border-top:1px #d0d0d0 solid;background:#f0f0f0;padding:0 10px;}
+.boxy-wrapper .answers{text-align:right;}
+/*confirm btn by zhangxinxu http://www.zhangxinxu.com*/
+.boxy-btn1,.boxy-btn2,.boxy-btn3{background:#ececec;border:1px #ababab solid;border-radius:3px;height:25px;padding:0 15px;font-size:14px;margin-left:10px;}
+.boxy-btn1:hover,.boxy-btn2:hover,.boxy-btn3:hover{border:1px #1a61b0 solid;color:#1a61b0;}

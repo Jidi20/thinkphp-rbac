@@ -1,0 +1,22 @@
+<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页
+		</div>
+		<div class="result-wrap">
+			<volist name='list' id='vo'>
+				<div><h1 class="bb1">{$vo.name}</h1></div>
+					<volist name="vo['son']" id='voo'>
+					<div style="padding:0 30px;"><h2>{$voo.name}</h2></div>
+						<div class="result-content">
+							<div class="short-wrap">
+								<volist name="voo['son']" id='vooo'>
+									<if condition="$vooo['is_view'] neq 0">
+										<a href="__MODULE__/{$vo.title}/{$vooo.title}" class="c1">{$vooo.name}</a>
+									</if>
+								</volist>
+							</div>
+						</div>
+					</volist>
+			</volist>
+		</div>
+</div>

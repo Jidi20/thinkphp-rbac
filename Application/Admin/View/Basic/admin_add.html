@@ -1,0 +1,70 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;人员管理
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>名称：</th>
+							<td><input class="inpstyle w300" id="" name="name" value="" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>手机号：</th>
+							<td><input class="inpstyle w300" id="" name="phone" value="" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>密码：</th>
+							<td><input class="inpstyle w300" id="" name="password" value="" type="password">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>角色：</th>
+							<td>
+								<select name="role_id" id="" class="selstyle w300">
+									<option value="">请选择</option>
+									<foreach name='list' item='vo'>
+										<option value="{$vo.id}">{$vo.name}</option>
+									</foreach>
+								</select>
+								&nbsp;&nbsp;<span style='color:red;'>指代理级别的管理员</span>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input class="butstyle mr10 bg1" value="提交" type="button" onclick="add_data()">
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		add_status=true;
+		function add_data(){
+		if(add_status){
+			add_status=false;
+			$.ajax({
+				url :"__URL__/admin_add_ajax",
+				type : 'post',
+				data :$("#form1").formSerialize(),
+				dataType :'json',
+				success : function(data) {
+					if(data.success==1){
+						Boxy.alert(data.message,function(){
+							location.href='__URL__/admin_list';
+						});return false;
+					}else{
+						add_status=true;
+						Boxy.alert(data.message, null);return false;
+					}
+				}
+			});
+		}else{
+			Boxy.alert("信息正在提交...", null);return false;
+		}
+	}
+    </script>

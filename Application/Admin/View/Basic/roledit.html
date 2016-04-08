@@ -1,0 +1,55 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;角色管理
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>名称：</th>
+							<td><input class="inpstyle w300" id="" name="name" value="{$list.name}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>职责：</th>
+							<td><input class="inpstyle w300" id="" name="duty" value="{$list.duty}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input class="butstyle mr10 bg1" value="提交" type="button" onclick="add_data()">
+							</td>
+						</tr>
+					</table>
+					<input value="{$list.id}" name="id" type="hidden">
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		add_status=true;
+		function add_data(){
+		if(add_status){
+			add_status=false;
+			$.ajax({
+				url :"__URL__/role_edit_ajax",
+				type : 'post',
+				data :$("#form1").formSerialize(),
+				dataType :'json',
+				success : function(data) {
+					if(data.success==1){
+						Boxy.alert(data.message,function(){
+							location.href='__URL__/rolelist';
+						});return false;
+					}else{
+						add_status=true;
+						Boxy.alert(data.message, null);return false;
+					}
+				}
+			});
+		}else{
+			Boxy.alert("信息正在提交...", null);return false;
+		}
+	}
+    </script>

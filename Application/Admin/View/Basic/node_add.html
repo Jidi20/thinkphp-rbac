@@ -1,0 +1,98 @@
+
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;节点分配
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form action="__URL__/node_add_ajax" method="post">
+					<table class="insert-tab" style="border:1px #ccc solid;">
+						<tr>
+							<td style="width:100px;text-align:center;font-size:16px;">选择权限</td>
+							<td>
+								<volist name="list" id="vo1">
+								<div style="border-left:1px #ccc solid;border-bottom:1px #ccc solid;">
+									<div style="height:30px;line-height:30px;background:#cecece;padding-left:20px;">
+										<input type="checkbox" style="margin-right:5px;" name="module_id[]" value="{$vo1.id}" class="lista{$vo1.id}" onclick="all_checked({$vo1.id})" id="checkbox{$vo1.id}" <in name="vo1.id" value="$module_ids">checked</in> ><label for="checkbox{$vo1.id}">{$vo1.name}</label>
+									</div>
+									<volist name='vo1.son' id='vo2'>
+										<div style="height:30px;line-height:30px;padding-left:40px;background:#f9f9f9;">
+											<input type="checkbox" style="margin-right:5px;" class="showa{$vo1.id} listb{$vo2.id}" id-date="{$vo1.id}" name="module_id[]" value="{$vo2.id}" id="checkbox{$vo2.id}" onclick="all_checked2({$vo2.id})" <in name="vo2.id" value="$module_ids">checked</in>><label for="checkbox{$vo2.id}">{$vo2.name}</label>
+										</div>
+										<div style="line-height:30px;width:auto;padding-left:60px;">
+											<volist name='vo2.son' id='vo3'>
+												<span style="float:left;width:200px;">
+													<input type="checkbox" style="margin-right:5px;" class="showa{$vo1.id} showb{$vo2.id} listc{$vo3.id}" id-date1="{$vo1.id}" id-date2="{$vo2.id}" name="module_id[]" value="{$vo3.id}" onclick="all_checked3({$vo3.id})" id="checkbox{$vo3.id}" <in name="vo3.id" value="$module_ids">checked</in>><label for="checkbox{$vo3.id}">{$vo3.name}</label>
+												</span>
+											</volist>
+											<div style="clear:both;"></div>
+										</div>
+									</volist>
+								</div>
+								</volist>
+								<div style="height:50px; line-height:50px;border-left:1px #ccc solid;padding-left:20px;">
+									<input class="butstyle bg1" value="提交" type="submit">
+								</div>
+							</td>
+						</tr>
+					</table>
+					<input type="hidden" value="{$id}" name="id">
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		//第一级选中
+    	function all_checked(id) {
+    		if($('.lista'+id).attr('checked')){
+				$(".showa" + id).attr("checked", true);
+    		}else{
+    			$(".showa" + id).attr("checked", false);
+    		}
+    	}
+		//第二级选中
+    	function all_checked2(id) {
+	        if($('.listb'+id).attr('checked')){
+	        	$(".showb" + id).attr("checked", true);
+	        	$(".lista" + $(".listb" + id).attr("id-date")).attr("checked", true);
+	        }else{
+	        	$(".showb" + id).attr("checked", false);
+	        	var st=1;
+	        	$(".showa"+$('.listb'+id).attr("id-date")).each(function(){
+	        		if($(this).attr('checked')){
+	        			st=2;
+	        		}
+	        	});
+	        	if(st==1){
+	        		$(".lista" + $(".listb" + id).attr("id-date")).attr("checked", false);
+	        	}
+	        }
+    	}
+    	//第三级选中
+		function all_checked3(id){
+			if($('.listc'+id).attr('checked')){
+				$(".lista" + $(".listc" + id).attr("id-date1")).attr("checked", true);
+				$(".listb" + $(".listc" + id).attr("id-date2")).attr("checked", true);
+			}else{
+				var st=1;
+	        	$(".showb"+$('.listc'+id).attr("id-date2")).each(function(){
+	        		if($(this).attr('checked')){
+	        			st=2;
+	        		}
+	        	});
+	        	if(st==1){
+					$(".listb" + $(".listc" + id).attr("id-date2")).attr("checked", false);
+					var st1=1;
+		        	$(".showa"+$(".listc" + id).attr("id-date1")).each(function(){
+		        		if($(this).attr('checked')){
+		        			st1=2;
+		        		}
+		        	});
+		        	if(st1==1){
+						$(".lista" + $(".listc" + id).attr("id-date1")).attr("checked", false);
+		        	}
+	        	}
+			}
+    	}
+    </script>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>{$Think.config.SITE_NAME}</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/common.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/main.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/page.css"/>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/admin/jquery.mCustomScrollbar.css"/>
+	<script type="text/javascript" language="javascript" src="__PUBLIC__/js/admin/jquery.js"></script>
+	<script type="text/javascript" language="javascript" src="__PUBLIC__/js/admin/style.js"></script>
+	<script type="text/javascript" language="javascript" src="__PUBLIC__/js/admin/jquery.form.js"></script>
+	<script type="text/javascript" language="javascript" src="__PUBLIC__/js/admin/jquery.mCustomScrollbar.min.js"></script>
+	<!-- 对话框的 css 和 js -->
+	<link rel="stylesheet" href="__PUBLIC__/css/admin/boxy.css" type="text/css" />
+	<script type="text/javascript" src="__PUBLIC__/js/admin/jquery.boxy.js"></script>
+	<!--图片上传插件-->
+	<script type="text/javascript" src="__PUBLIC__/js/admin/Ajax.js"></script>
+	<import file="swfupload.swfupload.swfupload,swfupload.js.swfupload#queue,swfupload.js.fileprogress,swfupload.js.handlers,js.admin.ajaxupload" />
+	<script type="text/javascript">
+	var session_id = "<php>echo session_id();</php>";
+	var public = "__PUBLIC__";
+	</script>
+	<!-- 对话框的 css 和 js -->
+	<script type="text/javascript" src="__PUBLIC__/js/admin/jsAddress.js"></script>
+</head>
+<body>
+<div class="header">
+	<div class="header_logo fl"><a href="#"><img src="__PUBLIC__/images/admin/logo.png"></a></div>
+	<div class="header_menu">
+		<ul>
+			<?php
+				//读取模块列表导航菜单
+				$nav_list = session('nav_list');
+				$nav_list = gettree2($nav_list);
+			?>
+			<?php foreach($nav_list as $ka1=>$va1){?>
+				<li>
+					<a href="__MODULE__/<?php echo $va1['title']?>/index" gm="<?php echo $va1['title']?>" class="menulista"><?php echo $va1['name']?></a>
+				</li>
+			<?php } ?>
+		</ul>
+	</div>
+	<div class="header_user">
+		<ul>
+			<li>欢迎您：<?php echo session('name')?></li>
+			<li><a href="__MODULE__/Index/changepassword">修改密码</a></li>
+			<li><a href="###" onclick="login_out();">退出</a></li>
+		</ul>
+	</div>
+</div>
+<div class="container clearfix global" id="container_height">
+	<div class="container-left">
+		<?php foreach($nav_list as $k1=>$v1){?>
+			<?php foreach($v1['son'] as $k2=>$v2){?>
+				<?php if(CONTROLLER_NAME==$v1['title']){ ?>
+					<div class="container-left-title"><?php echo $v2['name']?></div>
+					<ul class="sidebar-list">
+						<?php foreach($v2['son'] as $k3=>$v3){?>
+							<?php if($v3['is_view']!="0"){?>
+								<li><a href="__MODULE__/<?php echo $v1['title']?>/<?php echo $v3['title']?>" class="menulistb" gmb="<?php echo $v3['title']?>"><?php echo $v3['name']?></a></li>
+							<?php }?>
+						<?php }?>
+					</ul>
+				<?php }?>
+			<?php }?>
+		<?php }?>
+	</div>
+
+    {__CONTENT__}
+</div>
+<div class="footer">
+	<div>版权所有&nbsp;&copy;&nbsp;2014-2015&nbsp;南昌微聚科技有限公司&nbsp;并保留所有权利</div>
+</div>
+<script type="text/javascript">
+	$(".menulista").each(function(){
+		if($(this).attr("gm")=="{$Think.const.CONTROLLER_NAME}"){
+			$(this).addClass("astyle");
+		}
+	});
+	$(".menulistb").each(function(){
+		if($(this).attr("gmb")=="{$Think.const.ACTION_NAME}"){
+			$(this).addClass("aselected");
+		}
+	});
+	function login_out(){
+		Boxy.confirm("退出系统？", function() {
+			$.post('__MODULE__/Public/logout',{},function(){
+				window.location.href='__MODULE__/Public/login';
+			});
+		});
+		return false;
+	}
+</script>
+</body>
+</html>

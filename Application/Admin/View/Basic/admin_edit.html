@@ -1,0 +1,77 @@
+	<div class="container-right">
+		<div class="container-right-title">
+			当前位置：首页&nbsp;&gt;&nbsp;人员管理
+		</div>
+
+		<div class="result-wrap">
+			<div class="result-content">
+				<form name="form1" id="form1" action="javascript:;" method="post">
+					<table class="insert-tab">
+						<tr>
+							<th>名称：</th>
+							<td><input class="inpstyle w300" id="" name="name" value="{$list.name}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>手机号：</th>
+							<td><input class="inpstyle w300" id="" name="phone" value="{$list.phone}" type="text">&nbsp;&nbsp;<span style='color:#3ccecb;'>必填</span></td>
+						</tr>
+						<tr>
+							<th>密码：</th>
+							<td><input class="inpstyle w300" id="" name="password" value="" type="password">&nbsp;&nbsp;<span style='color:#3ccecb;'>留空则表示不修改</span></td>
+						</tr>
+						<tr>
+							<th>角色：</th>
+							<td>
+								<select name="role_id" id="" class="selstyle w300">
+									<volist name='role_list' id='vo'>
+										<option value="{$vo.id}" <if condition="$vo['id'] eq $list['role_id']">selected='selected'</if>>{$vo.name}</option>
+									</volist>
+								</select>
+								&nbsp;&nbsp;<span style='color:red;'>指代理级别的管理员</span>
+							</td>
+						</tr>
+						<tr>
+							<th>是否锁定：</th>
+							<td>
+							不锁定：<input name="is_lock" type="radio" value="1" <if condition='$list.is_lock eq 1'>checked</if>>&nbsp;&nbsp;
+							锁定：<input name="is_lock" type="radio" value="0" <if condition='$list.is_lock eq 0'>checked</if>>
+							</td>
+						</tr>
+						<tr>
+							<th></th>
+							<td>
+								<input class="butstyle mr10 bg1" value="提交" type="button" onclick="add_data()">
+							</td>
+						</tr>
+					</table>
+					<input value="{$list.id}" name="id" type="hidden">
+				</form>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		add_status=true;
+		function add_data(){
+		if(add_status){
+			add_status=false;
+			$.ajax({
+				url :"__URL__/admin_edit_ajax",
+				type : 'post',
+				data :$("#form1").formSerialize(),
+				dataType :'json',
+				success : function(data) {
+					if(data.success==1){
+						Boxy.alert(data.message,function(){
+							location.href='__URL__/admin_list';
+						});return false;
+					}else{
+						add_status=true;
+						Boxy.alert(data.message, null);return false;
+					}
+				}
+			});
+		}else{
+			Boxy.alert("信息正在提交...", null);return false;
+		}
+	}
+    </script>
